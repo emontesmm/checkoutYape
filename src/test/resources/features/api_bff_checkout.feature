@@ -3,7 +3,7 @@ Feature: Funcionalidad de Checkout Ecommerce
 
     Background: Token obtain
       Given que el yapero obtiene el token
-
+    @prueba1
     Scenario Outline: Validar que el EP Pay responda correctamente
       When el yapero invoca al EP Pay
       And el yapero ingresa su numero <celular> y el monto <monto> a pagar en el commerce
@@ -11,7 +11,7 @@ Feature: Funcionalidad de Checkout Ecommerce
       Examples:
         | celular   | monto |
         | 982050051 | 50.00 |
-
+    @prueba2
     Scenario Outline: Validar que el EP Pay no responda correctamente de acuerdo a las validaciones
       When el yapero invoca al EP Pay
       And el yapero ingresa su numero <celular> y el monto <monto> a pagar en el commerce
