@@ -4,6 +4,9 @@ import groovy.json.JsonSlurper
 
 pipeline {
   agent any
+  tools {
+          maven 'Maven 3.8.4'
+      }
   stages {
     stage ('Initialize') {
                 steps {
