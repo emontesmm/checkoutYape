@@ -1,0 +1,3 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Funcionalidad de Checkout Ecommerce","Validar que el EP Pay responda correctamente","SUCCESS","2022-03-07T10:08:24.089134-05:00[America/Lima]","0.0","12.31"
+"Funcionalidad de Checkout Ecommerce","Validar que el EP Pay no responda correctamente de acuerdo a las validaciones","SUCCESS","2022-03-07T10:08:36.416934-05:00[America/Lima]","0.0","11.76"

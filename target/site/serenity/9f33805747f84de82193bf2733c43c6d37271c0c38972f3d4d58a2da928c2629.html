@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Validar que el EP Pay no responda correctamente de acuerdo a las validaciones</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<!--[if IE 7]>
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.min.css">-->
+
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/v4-shims.min.css">
+
+<!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
+<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
+<script src="chartist/dist/chartist.min.js"></script>
+<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+<!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<!-- ImgPreview -->
+<script src="scripts/imgpreview.full.jquery.js" type="text/javascript"></script>
+</head>
+
+<body class="results-page">
+
+
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle"></span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+        <span class="breadcrumbs">
+            <a href="index.html" class="breadcrumbs">Home</a>
+
+            > <a href="4ca16ec1d9409c8e93e665206a4719436802119ec5766493e3fd04761a574c0a.html">Funcionalidad De Checkout Ecommerce</a>
+        > Validar que el EP Pay no responda correctamente de acuerdo a las validaciones
+        </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="fa fa-check-square-o"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="fa fa-book"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 07-03-2022 10:08</span>
+    <br style="clear:left"/>
+</div>
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fa fa-2x fa-comments-o"></i>
+                                        <span class="story-header-title">Funcionalidad De Checkout Ecommerce </span>
+                                    </h3>
+
+                                </div>
+
+                        </td>
+                        <td valign="top">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="success-color">
+                                    Validar que el EP Pay no responda correctamente de acuerdo a las validaciones
+                                        <span class="related-issue-title"></span>
+                                </span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+                <!-- CAST MEMBERS -->
+                <div>&nbsp;</div>
+                <div class="story-title">
+                    <table class="outcome-header">
+                        <tr>
+                            <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fa fa-2x fa-users"></i>
+                                        <span class="story-header-title">
+                                            <a class="btn btn-primary" data-toggle="collapse" href="#castDetails"
+                                               role="button" aria-expanded="true" aria-controls="castDetails">Cast</a>
+                                        </span>
+                                    </h3>
+
+                                    <div class="cast-member collapse" id="castDetails">
+                                        <table class="cast">
+                                            <tr>
+                                                    <td width="100%">
+                                                        <h4>
+                                                            <i class="fa fa-2x fa-user-o"></i>&nbsp;<span>yapero</span>
+                                                            <h4>
+                                                                <p></p>
+                                                                <ul>
+                                                                        <li><strong>yapero can:</strong>
+                                                                            <ul>
+                                                                                    <li>browse the web</li>
+                                                                                    <li>call an API at https://yapedev.b2clogin.com/yapedev.onmicrosoft.com/B2C_1A_Pruebas_Onboarding</li>
+                                                                                    <li>call an API at https://azfdeu2yaped10.azurefd.net</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                </ul>
+                                                    </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- END CAST MEMBERS -->
+
+
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+        <div class="story-title">
+            <h3 class="story-header">Scenario Outline</h3>
+
+            <div class="scenario">When el yapero invoca al EP Pay<br>And el yapero ingresa su numero &lt;celular&gt; y el monto &lt;monto&gt; a pagar en el commerce<br>Then el yapero visualiza el codigo &lt;codigo&gt; y descripcion &lt;descripcion&gt;</div>
+
+        </div>
+
+    <div id="beforetable"></div>
+
+
+            <h3 class="story-header">Examples:&nbsp;YAPERO NO EXISTE</h3>
+                <div class="requirementNarrative"></div>
+
+
+                <p class="example-tag">
+                </p>
+
+            <div class="example-table test-report">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                            <th>Celular</th>
+                            <th>Monto</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="test-SUCCESS"><a href="#0">1</a></td>
+                                <td class="test-SUCCESS"><a
+                                            href="#0">969929151</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#0">50.00</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#0">YPCHK0001</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#0">Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="story-header">Examples:&nbsp;YAPERO NO ACTIVO</h3>
+                <div class="requirementNarrative"></div>
+
+
+                <p class="example-tag">
+                </p>
+
+            <div class="example-table test-report">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                            <th>Celular</th>
+                            <th>Monto</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="test-SUCCESS"><a href="#1">2</a></td>
+                                <td class="test-SUCCESS"><a
+                                            href="#1">934400002</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#1">50.00</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#1">YPCHK0001</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#1">Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="story-header">Examples:&nbsp;YAPERO EN BLACKLIST</h3>
+                <div class="requirementNarrative"></div>
+
+
+                <p class="example-tag">
+                </p>
+
+            <div class="example-table test-report">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                            <th>Celular</th>
+                            <th>Monto</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="test-SUCCESS"><a href="#2">3</a></td>
+                                <td class="test-SUCCESS"><a
+                                            href="#2">982050052</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#2">50.00</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#2">YPCHK0002</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#2">Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3 class="story-header">Examples:&nbsp;YAPERO PAGA MAYOR AL LIMITE DIARIO DE TRANSACCION</h3>
+                <div class="requirementNarrative"></div>
+
+
+                <p class="example-tag">
+                </p>
+
+            <div class="example-table test-report">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                            <th>Celular</th>
+                            <th>Monto</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="test-SUCCESS"><a href="#3">4</a></td>
+                                <td class="test-SUCCESS"><a
+                                            href="#3">982050051</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#3">600.00</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#3">YPCHK0003</a>
+                                </td>
+                                <td class="test-SUCCESS"><a
+                                            href="#3">Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    <div id="tablecontents">
+        <div>
+            <table class="step-table">
+                <tr class="step-titles">
+                    <th width="65">
+                    </th>
+                    <th class="step-description-column greentext">
+                        Steps
+                    </th>
+
+                    <th width="130" class="greentext">Outcome</th>
+                    <th width="100" class="greentext"><i title="Duration" class="far fa-clock"></i></th>
+                </tr>
+                <tr class="step-table-separator">
+                    <td colspan="5"></td>
+                </tr>
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Example: {celular=969929151, monto=50.00, codigo=YPCHK0001, descripcion=Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.}
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">3.05s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-0 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Given que el yapero obtiene el token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.64s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="0-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-0-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero obtain token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.63s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="0-0-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-0-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-0-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /oauth2/v2.0/token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.57s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-0-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="0-0-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://yapedev.b2clogin.com/yapedev.onmicrosoft.com/B2C_1A_Pruebas_Onboarding/oauth2/v2.0/token?sub=fhfg&amp;documentType=fdf&amp;document=doc&amp;response_type=token&amp;fullName=fullnamex&amp;uuid=13ddsds&amp;client_id=e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;users=usersxd&amp;password=9d78qnZlwjFT%2B7Ha9SxXDBNCyT1YRwKyaTvDWkBKwtM%3D&amp;names=namesx&amp;grant_type=password&amp;scope=openid%20e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;needName=neednamex&amp;idYapeAccount=e1610c190b6a5581839546844632096c&amp;username=stephanydanerib10@mailinator.com
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-5">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 200</p>
+                                        <p>Content Type: text/html</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Cookie=x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.hAun06NcLQ83Cj/x.2x3pgibxKCNj7wT1gWrXQA==.0.XIwdw26K7xK1LVGVRa0Mp4PJ1P7CEei748R+0IJ/xKwdp5HhEieYZefQT9CRAqVFM3+ckLh9ouEHQmdw6ol7+2+qPU5lGZaBDP/JiwcNFHNylgFdBqUSAQv6NZPo7V3nndGnK3kXuyERz/666uIAeX2+pklLzIZ9ZADYJpn3HtKtkuCqrdJHfDKSh5Nxd+PnH28qKZQvQiA2BQW3XfjUCJQ7DuJfzL+9//5ajQ==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.TQIj7ltp09/CX9FM.bvjHOuRoww2meEZdwuMwaQ==.0.YxFiozOqMtKBK6rWjZozgbTmCZ9i9XHiMLOaollcx6YD2/djjvX0blV//ZGChf37Gwl+hpOukjHTtjgvm7GQpae3fLxc/dVKVv/2PjOwFXu6tSqac5i7JP6juTGSMTqkdZMy3wki6JdHgh60Ngu5PiTivoB6qooMgQnkDjee5mwppDBdV/XctxqchOsPUL8pQIw/Ilrt8t5D1mM2bRtMrNH30BAlHuRUeQ983+cq; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.uR9rlF9pnh1xEj6l.9/yOWZBMJ3JELx+IQrTzQg==.0.Z8Fo0QnZUQreDYYSwcXeHFO3yAT195d9lwQpYDa9ldpQ17LzIstrJwV6q7/5Ql16UtMyXcbi7imvcNJS1bIvpqnxlwRkfYyh+1wQvJznsrmsIZm5Q30RsBUKr9XQP+Goa3l2O8LI44wCgQ7gxR2CSH0dID0gmfGv2GLriMhplIal6jLEDsqkrBxm4QjkzAiQtmENvZZW7wQIKRzMu+myOavToB/efW2YYBsH4Q==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.C8Fv81UxDHLzolsM.p3Q7SeaMoRnLTHJw5kLrxA==.0.+kgmNjcdpucCeonzvscpB5q3RlL6D1P9lWrCxKFIstS4ZYmPGDb3fuZlIW+igfw6l9YKqMqbUXt3YT8KntWnGQOwjCUd94144D6s8rae2W8E/MfBAPffFE8px0sfQv3eKkYfncLRlqI+dYY3r/pwsHUqGHYF+QLCms9v/82PpUj4zCuKfn1XMsDOnXaiZmeRmeDJA3HWQb8qVD88IjsCTtR8MSDabq54WoJQt4co<br>Accept=*/*<br>Content-Type=text/html; charset=ISO-8859-1</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-store, must-revalidate, no-cache<br>Content-Type: application/json; charset=utf-8<br>x-ms-gateway-requestid: 891a18fd-a87b-483b-a40f-98032a2ebc82<br>X-Frame-Options: DENY<br>Public: OPTIONS,TRACE,GET,HEAD,POST<br>Strict-Transport-Security: max-age=31536000; includeSubDomains<br>X-Content-Type-Options: nosniff<br>X-XSS-Protection: 1; mode=block<br>Set-Cookie: x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.tS2Quwn8SbjSh4lI.CRAl0zn4bFESNogt2koThw==.0.zeo24Hkp/gMISnRm9Ea+3dBhhHlNWlvbZPgp1EGuuIv4bLnpcjgB4FHDrkbfruUrbT77lOOQsz4Gi4K8sCOwHuwfZSpcYcN24nbuaAmnp871G5QhL9LaoqIIky4BF3mqxAZqv2ocZh21jScRb04IvgdEd5JBViAuzHQvNtde+umyljfSCQ8KiaoEd3fbOB+sIjJjXs/B84D56NKF6ZAIFFkw4A==; domain=yapedev.b2clogin.com; path=/; SameSite=None; secure; HttpOnly<br>Set-Cookie: x-ms-cpim-trans=; domain=yapedev.b2clogin.com; expires=Wed, 07-Mar-2012 15:08:38 GMT; path=/; SameSite=None; secure; HttpOnly<br>Allow: OPTIONS<br>Allow: TRACE<br>Allow: GET<br>Allow: HEAD<br>Allow: POST<br>Date: Mon, 07 Mar 2022 15:08:37 GMT<br>Content-Length: 1222</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjE5NywibmJmIjoxNjQ2NjY1NzE3LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MTd9.v0CnPeLdDiddbBseI6Sq-O3FIAhLy4sMPsfI2Riu8cySlTMspNvHX85PBkTqrlDV-yBgRgNqW9kdntZjgD_bwEznZvvz2-VNdT3F7TiIMtUL6sJ1XAKy9tWZErxMNSuuWLgAGidD6vKzzCXbhNkWQPgC222jC1IHq_odyuYREWKzQq27ZG-a9y7As998ylmMwtANc2LoS0dOEDd7PqWyVuuDaXE5JCgCkWiaTvmOWAMucmHR97sYQQ3mQFKpFmwiInDx58htzznUuzdf3J14f66s6lm1-iqh2LVCeTH2n5QaDZCcWTzilMR5Yt9_Hpao1QG4Xiex0a_wBMY6BxAc-Q&quot;,<br>    &quot;token_type&quot;: &quot;Bearer&quot;,<br>    &quot;expires_in&quot;: &quot;480&quot;<br>}</pre>
+                                        <h4>Response Cookies</h4>
+                                        <pre>x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.tS2Quwn8SbjSh4lI.CRAl0zn4bFESNogt2koThw==.0.zeo24Hkp/gMISnRm9Ea+3dBhhHlNWlvbZPgp1EGuuIv4bLnpcjgB4FHDrkbfruUrbT77lOOQsz4Gi4K8sCOwHuwfZSpcYcN24nbuaAmnp871G5QhL9LaoqIIky4BF3mqxAZqv2ocZh21jScRb04IvgdEd5JBViAuzHQvNtde+umyljfSCQ8KiaoEd3fbOB+sIjJjXs/B84D56NKF6ZAIFFkw4A==;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;SameSite=None<br>x-ms-cpim-trans=;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;Expires=7/3/12 15:08;SameSite=None</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-1"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When el yapero invoca al EP Pay
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-2"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-2 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                And el yapero ingresa su numero 969929151 y el monto 50.00 a pagar en el commerce
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.3s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-2" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="0-2-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-2-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Yapero pay yape
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.29s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-2-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="0-2-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-2-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-2-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.28s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-2-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="0-2-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://azfdeu2yaped10.azurefd.net/yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-10">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 412</p>
+                                        <p>Content Type: application/json</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjE5NywibmJmIjoxNjQ2NjY1NzE3LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MTd9.v0CnPeLdDiddbBseI6Sq-O3FIAhLy4sMPsfI2Riu8cySlTMspNvHX85PBkTqrlDV-yBgRgNqW9kdntZjgD_bwEznZvvz2-VNdT3F7TiIMtUL6sJ1XAKy9tWZErxMNSuuWLgAGidD6vKzzCXbhNkWQPgC222jC1IHq_odyuYREWKzQq27ZG-a9y7As998ylmMwtANc2LoS0dOEDd7PqWyVuuDaXE5JCgCkWiaTvmOWAMucmHR97sYQQ3mQFKpFmwiInDx58htzznUuzdf3J14f66s6lm1-iqh2LVCeTH2n5QaDZCcWTzilMR5Yt9_Hpao1QG4Xiex0a_wBMY6BxAc-Q<br>caller-name=terms-conditions<br>request-date=2015-06-01T17:15:20.509-0400<br>app-code=YP<br>Request-ID=550e8400-e29b-41d4-a716-447655440000<br>Accept=*/*<br>Content-Type=application/json; charset=UTF-8</pre>
+                                        <h4>Content Body</h4>
+                                        <pre>{<br>    &quot;phoneNumber&quot;: &quot;969929151&quot;,<br>    &quot;amount&quot;: &quot;50.00&quot;<br>}</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-cache, no-store, max-age=0, must-revalidate<br>Pragma: no-cache<br>Transfer-Encoding: chunked<br>Content-Type: application/json<br>Expires: 0<br>Request-ID: 550e8400-e29b-41d4-a716-447655440000<br>opn-nro-host: 3e706c1a-9d06-451f-82da-0b861aca8d3b<br>error-type: FUNCTIONAL<br>error-code: YPCHK0001<br>X-Content-Type-Options: nosniff<br>Strict-Transport-Security: max-age=15724800; includeSubDomains<br>X-Frame-Options: DENY<br>X-XSS-Protection: 1 ; mode=block<br>Referrer-Policy: no-referrer<br>X-Cache: CONFIG_NOCACHE<br>X-Azure-Ref: 09h8mYgAAAAA7Tbli/8YLQ4OI8l8AaHuqU0NMMzBFREdFMDIxMQAyNzQxZGM0My1kNmRjLTQ1ZDYtYjU4NS1lYjVlNDcxYWU5YmM=<br>Date: Mon, 07 Mar 2022 15:08:38 GMT</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;code&quot;: &quot;YPCHK0001&quot;,<br>    &quot;description&quot;: &quot;Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.&quot;,<br>    &quot;errorType&quot;: &quot;FUNCTIONAL&quot;,<br>    &quot;exceptionDetails&quot;: [<br>        {<br>            &quot;code&quot;: &quot;YPCHK0001&quot;,<br>            &quot;component&quot;: &quot;channel-yape-checkout&quot;<br>        }<br>    ]<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-3"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-3')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0-3 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0-3')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Then el yapero visualiza el codigo YPCHK0001 y descripcion Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.1s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0-3" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="0-3-0"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then El codigo de error es:  should be 'YPCHK0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="0-3-1"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then La descripcion es:  should be 'Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="1"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Example: {celular=934400002, monto=50.00, codigo=YPCHK0001, descripcion=Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.}
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.73s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="1-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-0 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Given que el yapero obtiene el token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.65s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="1-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-0-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero obtain token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.64s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="1-0-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-0-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-0-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /oauth2/v2.0/token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.59s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-0-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="1-0-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://yapedev.b2clogin.com/yapedev.onmicrosoft.com/B2C_1A_Pruebas_Onboarding/oauth2/v2.0/token?sub=fhfg&amp;documentType=fdf&amp;document=doc&amp;response_type=token&amp;fullName=fullnamex&amp;uuid=13ddsds&amp;client_id=e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;users=usersxd&amp;password=9d78qnZlwjFT%2B7Ha9SxXDBNCyT1YRwKyaTvDWkBKwtM%3D&amp;names=namesx&amp;grant_type=password&amp;scope=openid%20e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;needName=neednamex&amp;idYapeAccount=e1610c190b6a5581839546844632096c&amp;username=stephanydanerib10@mailinator.com
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-18">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-18">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 200</p>
+                                        <p>Content Type: text/html</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Cookie=x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.hAun06NcLQ83Cj/x.2x3pgibxKCNj7wT1gWrXQA==.0.XIwdw26K7xK1LVGVRa0Mp4PJ1P7CEei748R+0IJ/xKwdp5HhEieYZefQT9CRAqVFM3+ckLh9ouEHQmdw6ol7+2+qPU5lGZaBDP/JiwcNFHNylgFdBqUSAQv6NZPo7V3nndGnK3kXuyERz/666uIAeX2+pklLzIZ9ZADYJpn3HtKtkuCqrdJHfDKSh5Nxd+PnH28qKZQvQiA2BQW3XfjUCJQ7DuJfzL+9//5ajQ==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.TQIj7ltp09/CX9FM.bvjHOuRoww2meEZdwuMwaQ==.0.YxFiozOqMtKBK6rWjZozgbTmCZ9i9XHiMLOaollcx6YD2/djjvX0blV//ZGChf37Gwl+hpOukjHTtjgvm7GQpae3fLxc/dVKVv/2PjOwFXu6tSqac5i7JP6juTGSMTqkdZMy3wki6JdHgh60Ngu5PiTivoB6qooMgQnkDjee5mwppDBdV/XctxqchOsPUL8pQIw/Ilrt8t5D1mM2bRtMrNH30BAlHuRUeQ983+cq; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.uR9rlF9pnh1xEj6l.9/yOWZBMJ3JELx+IQrTzQg==.0.Z8Fo0QnZUQreDYYSwcXeHFO3yAT195d9lwQpYDa9ldpQ17LzIstrJwV6q7/5Ql16UtMyXcbi7imvcNJS1bIvpqnxlwRkfYyh+1wQvJznsrmsIZm5Q30RsBUKr9XQP+Goa3l2O8LI44wCgQ7gxR2CSH0dID0gmfGv2GLriMhplIal6jLEDsqkrBxm4QjkzAiQtmENvZZW7wQIKRzMu+myOavToB/efW2YYBsH4Q==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.C8Fv81UxDHLzolsM.p3Q7SeaMoRnLTHJw5kLrxA==.0.+kgmNjcdpucCeonzvscpB5q3RlL6D1P9lWrCxKFIstS4ZYmPGDb3fuZlIW+igfw6l9YKqMqbUXt3YT8KntWnGQOwjCUd94144D6s8rae2W8E/MfBAPffFE8px0sfQv3eKkYfncLRlqI+dYY3r/pwsHUqGHYF+QLCms9v/82PpUj4zCuKfn1XMsDOnXaiZmeRmeDJA3HWQb8qVD88IjsCTtR8MSDabq54WoJQt4co<br>Accept=*/*<br>Content-Type=text/html; charset=ISO-8859-1</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-store, must-revalidate, no-cache<br>Content-Type: application/json; charset=utf-8<br>x-ms-gateway-requestid: ef05934b-b143-4ada-b645-514a1a7dc298<br>X-Frame-Options: DENY<br>Public: OPTIONS,TRACE,GET,HEAD,POST<br>Strict-Transport-Security: max-age=31536000; includeSubDomains<br>X-Content-Type-Options: nosniff<br>X-XSS-Protection: 1; mode=block<br>Set-Cookie: x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.CBDxUKH5Hchksvhs.WLIlx2Fx0kpyUk42NkUClg==.0.RT9w/Ib+qXvr6qFMVQW8409QaejCRggDmWtAk5cw5MkiTvoNORee12nkd2qIKWLynHY7wsjBV0eh0DqW2asfvRXVA9+F0M4n9ATEUoWg5UCFB6EgqcuUG32dXPuezmevh+AUVwMXlKDhZD4f3GCJrYdkdLhxwI6n22Zz2ceTkg4QT3YE73P1FFJ4Rs2S2yEK6sHaIjVwtHQJxjUiI+cVkb3o4JAl; domain=yapedev.b2clogin.com; path=/; SameSite=None; secure; HttpOnly<br>Set-Cookie: x-ms-cpim-trans=; domain=yapedev.b2clogin.com; expires=Wed, 07-Mar-2012 15:08:41 GMT; path=/; SameSite=None; secure; HttpOnly<br>Allow: OPTIONS<br>Allow: TRACE<br>Allow: GET<br>Allow: HEAD<br>Allow: POST<br>Date: Mon, 07 Mar 2022 15:08:40 GMT<br>Content-Length: 1222</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwMSwibmJmIjoxNjQ2NjY1NzIxLCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjF9.QbNN8YS0nF8xN2UL1HSezcYhB3U9L1lNHLrqqJ0MSHNbA912RXF9m832A_-DS1ewBsmJ7b3fbzwVxIHw_oZKK5disRI6dDDgb6dwxNwCCmZjfF5l4E1J7KtT00z5Ih_hhQ4oLDUg-5pWVyJ795zftBrH30JgHnludlYYUB7jAuHNERjD1F6v0eN80SRJXeVRCtYwJZeF_5D1bwoVEcwnzjyZMgr17JNV_V5K-OLfE9g8o2O-IjuLVG_tjTnlF3EUvstK3k2DnWV3g1FPSfCFrkoeGoAaFAJceKWWx4dzQtU3ZMTVin1fTRd4JSK3fmoZkou3dlvc6WWK7sG1wpAyOw&quot;,<br>    &quot;token_type&quot;: &quot;Bearer&quot;,<br>    &quot;expires_in&quot;: &quot;480&quot;<br>}</pre>
+                                        <h4>Response Cookies</h4>
+                                        <pre>x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.CBDxUKH5Hchksvhs.WLIlx2Fx0kpyUk42NkUClg==.0.RT9w/Ib+qXvr6qFMVQW8409QaejCRggDmWtAk5cw5MkiTvoNORee12nkd2qIKWLynHY7wsjBV0eh0DqW2asfvRXVA9+F0M4n9ATEUoWg5UCFB6EgqcuUG32dXPuezmevh+AUVwMXlKDhZD4f3GCJrYdkdLhxwI6n22Zz2ceTkg4QT3YE73P1FFJ4Rs2S2yEK6sHaIjVwtHQJxjUiI+cVkb3o4JAl;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;SameSite=None<br>x-ms-cpim-trans=;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;Expires=7/3/12 15:08;SameSite=None</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="1-1"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When el yapero invoca al EP Pay
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="1-2"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-2 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                And el yapero ingresa su numero 934400002 y el monto 50.00 a pagar en el commerce
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.05s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-2" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="1-2-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-2-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Yapero pay yape
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.04s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-2-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="1-2-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-2-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-2-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.03s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-2-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="1-2-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://azfdeu2yaped10.azurefd.net/yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-23">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-23">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 412</p>
+                                        <p>Content Type: application/json</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwMSwibmJmIjoxNjQ2NjY1NzIxLCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjF9.QbNN8YS0nF8xN2UL1HSezcYhB3U9L1lNHLrqqJ0MSHNbA912RXF9m832A_-DS1ewBsmJ7b3fbzwVxIHw_oZKK5disRI6dDDgb6dwxNwCCmZjfF5l4E1J7KtT00z5Ih_hhQ4oLDUg-5pWVyJ795zftBrH30JgHnludlYYUB7jAuHNERjD1F6v0eN80SRJXeVRCtYwJZeF_5D1bwoVEcwnzjyZMgr17JNV_V5K-OLfE9g8o2O-IjuLVG_tjTnlF3EUvstK3k2DnWV3g1FPSfCFrkoeGoAaFAJceKWWx4dzQtU3ZMTVin1fTRd4JSK3fmoZkou3dlvc6WWK7sG1wpAyOw<br>caller-name=terms-conditions<br>request-date=2015-06-01T17:15:20.509-0400<br>app-code=YP<br>Request-ID=550e8400-e29b-41d4-a716-447655440000<br>Accept=*/*<br>Content-Type=application/json; charset=UTF-8</pre>
+                                        <h4>Content Body</h4>
+                                        <pre>{<br>    &quot;phoneNumber&quot;: &quot;934400002&quot;,<br>    &quot;amount&quot;: &quot;50.00&quot;<br>}</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-cache, no-store, max-age=0, must-revalidate<br>Pragma: no-cache<br>Transfer-Encoding: chunked<br>Content-Type: application/json<br>Expires: 0<br>Request-ID: 550e8400-e29b-41d4-a716-447655440000<br>opn-nro-host: 2f33db09-e77a-4c2c-9e30-39acecd96e6d<br>error-type: FUNCTIONAL<br>error-code: YPCHK0001<br>X-Content-Type-Options: nosniff<br>Strict-Transport-Security: max-age=15724800; includeSubDomains<br>X-Frame-Options: DENY<br>X-XSS-Protection: 1 ; mode=block<br>Referrer-Policy: no-referrer<br>X-Cache: CONFIG_NOCACHE<br>X-Azure-Ref: 0+R8mYgAAAADYSXuRIKCkRLuL6pVtGSKEU0NMMzBFREdFMDIxNQAyNzQxZGM0My1kNmRjLTQ1ZDYtYjU4NS1lYjVlNDcxYWU5YmM=<br>Date: Mon, 07 Mar 2022 15:08:41 GMT</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;code&quot;: &quot;YPCHK0001&quot;,<br>    &quot;description&quot;: &quot;Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.&quot;,<br>    &quot;errorType&quot;: &quot;FUNCTIONAL&quot;,<br>    &quot;exceptionDetails&quot;: [<br>        {<br>            &quot;code&quot;: &quot;YPCHK0001&quot;,<br>            &quot;component&quot;: &quot;channel-yape-checkout&quot;<br>        }<br>    ]<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="1-3"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-3')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1-3 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1-3')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Then el yapero visualiza el codigo YPCHK0001 y descripcion Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.02s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1-3" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="1-3-0"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then El codigo de error es:  should be 'YPCHK0001'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="1-3-1"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then La descripcion es:  should be 'Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="2"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Example: {celular=982050052, monto=50.00, codigo=YPCHK0002, descripcion=Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.}
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">2.59s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="2-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-0 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Given que el yapero obtiene el token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.94s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="2-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-0-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero obtain token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.93s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="2-0-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-0-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-0-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /oauth2/v2.0/token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.9s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-0-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="2-0-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://yapedev.b2clogin.com/yapedev.onmicrosoft.com/B2C_1A_Pruebas_Onboarding/oauth2/v2.0/token?sub=fhfg&amp;documentType=fdf&amp;document=doc&amp;response_type=token&amp;fullName=fullnamex&amp;uuid=13ddsds&amp;client_id=e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;users=usersxd&amp;password=9d78qnZlwjFT%2B7Ha9SxXDBNCyT1YRwKyaTvDWkBKwtM%3D&amp;names=namesx&amp;grant_type=password&amp;scope=openid%20e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;needName=neednamex&amp;idYapeAccount=e1610c190b6a5581839546844632096c&amp;username=stephanydanerib10@mailinator.com
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-31">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-31">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 200</p>
+                                        <p>Content Type: text/html</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Cookie=x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.hAun06NcLQ83Cj/x.2x3pgibxKCNj7wT1gWrXQA==.0.XIwdw26K7xK1LVGVRa0Mp4PJ1P7CEei748R+0IJ/xKwdp5HhEieYZefQT9CRAqVFM3+ckLh9ouEHQmdw6ol7+2+qPU5lGZaBDP/JiwcNFHNylgFdBqUSAQv6NZPo7V3nndGnK3kXuyERz/666uIAeX2+pklLzIZ9ZADYJpn3HtKtkuCqrdJHfDKSh5Nxd+PnH28qKZQvQiA2BQW3XfjUCJQ7DuJfzL+9//5ajQ==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.TQIj7ltp09/CX9FM.bvjHOuRoww2meEZdwuMwaQ==.0.YxFiozOqMtKBK6rWjZozgbTmCZ9i9XHiMLOaollcx6YD2/djjvX0blV//ZGChf37Gwl+hpOukjHTtjgvm7GQpae3fLxc/dVKVv/2PjOwFXu6tSqac5i7JP6juTGSMTqkdZMy3wki6JdHgh60Ngu5PiTivoB6qooMgQnkDjee5mwppDBdV/XctxqchOsPUL8pQIw/Ilrt8t5D1mM2bRtMrNH30BAlHuRUeQ983+cq; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.uR9rlF9pnh1xEj6l.9/yOWZBMJ3JELx+IQrTzQg==.0.Z8Fo0QnZUQreDYYSwcXeHFO3yAT195d9lwQpYDa9ldpQ17LzIstrJwV6q7/5Ql16UtMyXcbi7imvcNJS1bIvpqnxlwRkfYyh+1wQvJznsrmsIZm5Q30RsBUKr9XQP+Goa3l2O8LI44wCgQ7gxR2CSH0dID0gmfGv2GLriMhplIal6jLEDsqkrBxm4QjkzAiQtmENvZZW7wQIKRzMu+myOavToB/efW2YYBsH4Q==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.C8Fv81UxDHLzolsM.p3Q7SeaMoRnLTHJw5kLrxA==.0.+kgmNjcdpucCeonzvscpB5q3RlL6D1P9lWrCxKFIstS4ZYmPGDb3fuZlIW+igfw6l9YKqMqbUXt3YT8KntWnGQOwjCUd94144D6s8rae2W8E/MfBAPffFE8px0sfQv3eKkYfncLRlqI+dYY3r/pwsHUqGHYF+QLCms9v/82PpUj4zCuKfn1XMsDOnXaiZmeRmeDJA3HWQb8qVD88IjsCTtR8MSDabq54WoJQt4co<br>Accept=*/*<br>Content-Type=text/html; charset=ISO-8859-1</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-store, must-revalidate, no-cache<br>Content-Type: application/json; charset=utf-8<br>x-ms-gateway-requestid: ef6fd211-8a04-4355-ba3b-7836d2c1d044<br>X-Frame-Options: DENY<br>Public: OPTIONS,TRACE,GET,HEAD,POST<br>Strict-Transport-Security: max-age=31536000; includeSubDomains<br>X-Content-Type-Options: nosniff<br>X-XSS-Protection: 1; mode=block<br>Set-Cookie: x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.tHW1opAZCmjn8NJ0.aOVMfMk6CMhjVRVb53bmnQ==.0.Ycmf1jXHbr/mYY5DgZ+AvdqDNt7olJD/CzmGbkHt+8/0NfwuPKTu+yJ1HJzab/Ww1X6O2w5DxVx3mkEQcE1Y6BNIB/Mk1LrW0ZZIX8bhXYZLTLjOs++xt4uQ6QUi7rzaCsEbj8FOw0oBp3eA1mDLNnD0MnZe+bJGq63sZEXz5lx/QTvhJzuibLrAgBHAKDnI3YdoDu4WsKm1Cjz7FlQNy1l6bA==; domain=yapedev.b2clogin.com; path=/; SameSite=None; secure; HttpOnly<br>Set-Cookie: x-ms-cpim-trans=; domain=yapedev.b2clogin.com; expires=Wed, 07-Mar-2012 15:08:44 GMT; path=/; SameSite=None; secure; HttpOnly<br>Allow: OPTIONS<br>Allow: TRACE<br>Allow: GET<br>Allow: HEAD<br>Allow: POST<br>Date: Mon, 07 Mar 2022 15:08:43 GMT<br>Content-Length: 1222</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwNCwibmJmIjoxNjQ2NjY1NzI0LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjR9.yyH3xRnKErt_Ds4TJ9zPortdhgCg4viNG79yDvrJxBowFo7-bCimWWdO7R_O_elQDHT1X98jZuhLptv4K7p48EvqltkOM5cIPq0Wpn6hXlmA83vCKS-6B-fwbYOAiId5letc5s9_7XZBMF2RHXq_y62fHH0RgnskB-A7vLeiU-HN7iKxMFFdzvYbH8l6xLCSdJZPmnTHPpNrvetfrRKGV3seDclC9RcF8G_3aw1IpOKik_iW8sk6k0hBzBe6VTk9RqtSY02ucRaPMq136MD_XiMB0E70BCcSw77d0094pFYJXjylwqD0q2PdjldUFXW9oGyOesa0Sn47JxkB7w8VHg&quot;,<br>    &quot;token_type&quot;: &quot;Bearer&quot;,<br>    &quot;expires_in&quot;: &quot;480&quot;<br>}</pre>
+                                        <h4>Response Cookies</h4>
+                                        <pre>x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.tHW1opAZCmjn8NJ0.aOVMfMk6CMhjVRVb53bmnQ==.0.Ycmf1jXHbr/mYY5DgZ+AvdqDNt7olJD/CzmGbkHt+8/0NfwuPKTu+yJ1HJzab/Ww1X6O2w5DxVx3mkEQcE1Y6BNIB/Mk1LrW0ZZIX8bhXYZLTLjOs++xt4uQ6QUi7rzaCsEbj8FOw0oBp3eA1mDLNnD0MnZe+bJGq63sZEXz5lx/QTvhJzuibLrAgBHAKDnI3YdoDu4WsKm1Cjz7FlQNy1l6bA==;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;SameSite=None<br>x-ms-cpim-trans=;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;Expires=7/3/12 15:08;SameSite=None</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="2-1"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When el yapero invoca al EP Pay
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="2-2"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-2 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                And el yapero ingresa su numero 982050052 y el monto 50.00 a pagar en el commerce
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.62s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-2" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="2-2-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-2-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Yapero pay yape
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.61s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-2-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="2-2-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-2-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-2-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.6s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-2-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="2-2-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://azfdeu2yaped10.azurefd.net/yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-36">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-36">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 412</p>
+                                        <p>Content Type: application/json</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwNCwibmJmIjoxNjQ2NjY1NzI0LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjR9.yyH3xRnKErt_Ds4TJ9zPortdhgCg4viNG79yDvrJxBowFo7-bCimWWdO7R_O_elQDHT1X98jZuhLptv4K7p48EvqltkOM5cIPq0Wpn6hXlmA83vCKS-6B-fwbYOAiId5letc5s9_7XZBMF2RHXq_y62fHH0RgnskB-A7vLeiU-HN7iKxMFFdzvYbH8l6xLCSdJZPmnTHPpNrvetfrRKGV3seDclC9RcF8G_3aw1IpOKik_iW8sk6k0hBzBe6VTk9RqtSY02ucRaPMq136MD_XiMB0E70BCcSw77d0094pFYJXjylwqD0q2PdjldUFXW9oGyOesa0Sn47JxkB7w8VHg<br>caller-name=terms-conditions<br>request-date=2015-06-01T17:15:20.509-0400<br>app-code=YP<br>Request-ID=550e8400-e29b-41d4-a716-447655440000<br>Accept=*/*<br>Content-Type=application/json; charset=UTF-8</pre>
+                                        <h4>Content Body</h4>
+                                        <pre>{<br>    &quot;phoneNumber&quot;: &quot;982050052&quot;,<br>    &quot;amount&quot;: &quot;50.00&quot;<br>}</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-cache, no-store, max-age=0, must-revalidate<br>Pragma: no-cache<br>Transfer-Encoding: chunked<br>Content-Type: application/json<br>Expires: 0<br>Request-ID: 550e8400-e29b-41d4-a716-447655440000<br>opn-nro-host: ed76f193-e5cf-422c-a30f-bc0a4e50cf9e<br>error-type: FUNCTIONAL<br>error-code: YPCHK0002<br>X-Content-Type-Options: nosniff<br>Strict-Transport-Security: max-age=15724800; includeSubDomains<br>X-Frame-Options: DENY<br>X-XSS-Protection: 1 ; mode=block<br>Referrer-Policy: no-referrer<br>X-Cache: CONFIG_NOCACHE<br>X-Azure-Ref: 0/B8mYgAAAAAdPmy3EfE7SL1ADQ7Oba9OU0NMMzBFREdFMDIxMQAyNzQxZGM0My1kNmRjLTQ1ZDYtYjU4NS1lYjVlNDcxYWU5YmM=<br>Date: Mon, 07 Mar 2022 15:08:43 GMT</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;code&quot;: &quot;YPCHK0002&quot;,<br>    &quot;description&quot;: &quot;Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.&quot;,<br>    &quot;errorType&quot;: &quot;FUNCTIONAL&quot;,<br>    &quot;exceptionDetails&quot;: [<br>        {<br>            &quot;code&quot;: &quot;YPCHK0002&quot;,<br>            &quot;component&quot;: &quot;channel-yape-checkout&quot;<br>        }<br>    ]<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="2-3"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-3')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection2-3 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection2-3')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Then el yapero visualiza el codigo YPCHK0002 y descripcion Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.02s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection2-3" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="2-3-0"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then El codigo de error es:  should be 'YPCHK0002'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="2-3-1"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then La descripcion es:  should be 'Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="3"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Example: {celular=982050051, monto=600.00, codigo=YPCHK0003, descripcion=Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.}
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">3.34s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="3-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-0 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Given que el yapero obtiene el token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">2.06s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="3-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-0-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero obtain token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">2.05s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="3-0-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-0-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-0-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /oauth2/v2.0/token
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">2.02s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-0-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="3-0-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://yapedev.b2clogin.com/yapedev.onmicrosoft.com/B2C_1A_Pruebas_Onboarding/oauth2/v2.0/token?sub=fhfg&amp;documentType=fdf&amp;document=doc&amp;response_type=token&amp;fullName=fullnamex&amp;uuid=13ddsds&amp;client_id=e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;users=usersxd&amp;password=9d78qnZlwjFT%2B7Ha9SxXDBNCyT1YRwKyaTvDWkBKwtM%3D&amp;names=namesx&amp;grant_type=password&amp;scope=openid%20e86662b3-6dd3-40a2-bfc2-3cc5aa314a6c&amp;needName=neednamex&amp;idYapeAccount=e1610c190b6a5581839546844632096c&amp;username=stephanydanerib10@mailinator.com
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-44">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-44">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 200</p>
+                                        <p>Content Type: text/html</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Cookie=x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.hAun06NcLQ83Cj/x.2x3pgibxKCNj7wT1gWrXQA==.0.XIwdw26K7xK1LVGVRa0Mp4PJ1P7CEei748R+0IJ/xKwdp5HhEieYZefQT9CRAqVFM3+ckLh9ouEHQmdw6ol7+2+qPU5lGZaBDP/JiwcNFHNylgFdBqUSAQv6NZPo7V3nndGnK3kXuyERz/666uIAeX2+pklLzIZ9ZADYJpn3HtKtkuCqrdJHfDKSh5Nxd+PnH28qKZQvQiA2BQW3XfjUCJQ7DuJfzL+9//5ajQ==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.TQIj7ltp09/CX9FM.bvjHOuRoww2meEZdwuMwaQ==.0.YxFiozOqMtKBK6rWjZozgbTmCZ9i9XHiMLOaollcx6YD2/djjvX0blV//ZGChf37Gwl+hpOukjHTtjgvm7GQpae3fLxc/dVKVv/2PjOwFXu6tSqac5i7JP6juTGSMTqkdZMy3wki6JdHgh60Ngu5PiTivoB6qooMgQnkDjee5mwppDBdV/XctxqchOsPUL8pQIw/Ilrt8t5D1mM2bRtMrNH30BAlHuRUeQ983+cq; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.uR9rlF9pnh1xEj6l.9/yOWZBMJ3JELx+IQrTzQg==.0.Z8Fo0QnZUQreDYYSwcXeHFO3yAT195d9lwQpYDa9ldpQ17LzIstrJwV6q7/5Ql16UtMyXcbi7imvcNJS1bIvpqnxlwRkfYyh+1wQvJznsrmsIZm5Q30RsBUKr9XQP+Goa3l2O8LI44wCgQ7gxR2CSH0dID0gmfGv2GLriMhplIal6jLEDsqkrBxm4QjkzAiQtmENvZZW7wQIKRzMu+myOavToB/efW2YYBsH4Q==; x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.C8Fv81UxDHLzolsM.p3Q7SeaMoRnLTHJw5kLrxA==.0.+kgmNjcdpucCeonzvscpB5q3RlL6D1P9lWrCxKFIstS4ZYmPGDb3fuZlIW+igfw6l9YKqMqbUXt3YT8KntWnGQOwjCUd94144D6s8rae2W8E/MfBAPffFE8px0sfQv3eKkYfncLRlqI+dYY3r/pwsHUqGHYF+QLCms9v/82PpUj4zCuKfn1XMsDOnXaiZmeRmeDJA3HWQb8qVD88IjsCTtR8MSDabq54WoJQt4co<br>Accept=*/*<br>Content-Type=text/html; charset=ISO-8859-1</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-store, must-revalidate, no-cache<br>Content-Type: application/json; charset=utf-8<br>x-ms-gateway-requestid: 2efd63e5-021f-48aa-869b-0806b4159dab<br>X-Frame-Options: DENY<br>Public: OPTIONS,TRACE,GET,HEAD,POST<br>Strict-Transport-Security: max-age=31536000; includeSubDomains<br>X-Content-Type-Options: nosniff<br>X-XSS-Protection: 1; mode=block<br>Set-Cookie: x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.IA5MH+pVXKZoqZyS.qnQvgDtfk5h/EChwQUt+gA==.0.socV+VSGaLfGtvTWX4cA+N/AI+u6hiTCLFHo6oDqMAZ25mD4CVgrXQSE+OvsaXxg0IBj7tsB80ufgRK1ltC/4LBBZ7njs8g0dyfj3Aafo7wrdmkFKFTJtqFj+ttbA8w3rLXhIDqBHctQsvH7GeoyRYk63SEhwRrub0Rc9sktq/rh7bimqRZ2Iffd0kEzzycbUzgKT+5eBEs9+SB1IQsmIQwQ; domain=yapedev.b2clogin.com; path=/; SameSite=None; secure; HttpOnly<br>Set-Cookie: x-ms-cpim-trans=; domain=yapedev.b2clogin.com; expires=Wed, 07-Mar-2012 15:08:46 GMT; path=/; SameSite=None; secure; HttpOnly<br>Allow: OPTIONS<br>Allow: TRACE<br>Allow: GET<br>Allow: HEAD<br>Allow: POST<br>Date: Mon, 07 Mar 2022 15:08:46 GMT<br>Content-Length: 1222</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwNiwibmJmIjoxNjQ2NjY1NzI2LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjZ9.JgEXs-ioXSzcLL_upMP32wMXxM8r-5if5xNLsPGD6p16VWzrx0EeFQ_Hfbzz92WtgvmwgmjmLno8-XfoVA3IkINsVuiECm39OFMbyaDkPBwUgkiDygQhNEZdQnm_uwJAl2ZqJH9Oj6n4uEE7IwUie0CDWTXN7friVrLrhYbg4rx7d6NFmDQsAuw0U04l1J8kZ5DMOeD8jcfx6YMKvkEIQ5jAd6xMzxU6WfOivDhCgUpRCC8WLCvtuQkDnwYgQD9jjZv1NdfPi8T52yEOQyo1aqxnzI6nfrWGJWNf_Revh_YPsFEVmGEFMU6HgDll7uJPwiZPjFx8Xum1udAM4PPx_g&quot;,<br>    &quot;token_type&quot;: &quot;Bearer&quot;,<br>    &quot;expires_in&quot;: &quot;480&quot;<br>}</pre>
+                                        <h4>Response Cookies</h4>
+                                        <pre>x-ms-cpim-sso:yapedev.onmicrosoft.com_0=m1.IA5MH+pVXKZoqZyS.qnQvgDtfk5h/EChwQUt+gA==.0.socV+VSGaLfGtvTWX4cA+N/AI+u6hiTCLFHo6oDqMAZ25mD4CVgrXQSE+OvsaXxg0IBj7tsB80ufgRK1ltC/4LBBZ7njs8g0dyfj3Aafo7wrdmkFKFTJtqFj+ttbA8w3rLXhIDqBHctQsvH7GeoyRYk63SEhwRrub0Rc9sktq/rh7bimqRZ2Iffd0kEzzycbUzgKT+5eBEs9+SB1IQsmIQwQ;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;SameSite=None<br>x-ms-cpim-trans=;Path=/;Domain=yapedev.b2clogin.com;Secure;HttpOnly;Expires=7/3/12 15:08;SameSite=None</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="3-1"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                When el yapero invoca al EP Pay
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="3-2"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-2 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                And el yapero ingresa su numero 982050051 y el monto 600.00 a pagar en el commerce
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.26s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-2" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="3-2-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-2-0 success-icon"
+                                       style="margin-left: 60px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Yapero pay yape
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.25s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-2-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="110" class="step-icon">
+                            <a name="3-2-0-0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2-0-0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-2-0-0 success-icon"
+                                       style="margin-left: 80px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-2-0-0')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                yapero executes a POST on the resource /yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">1.25s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-2-0-0" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="130" class="step-icon">
+                            <a name="3-2-0-0-0"></a>
+                                <span style="margin-left: 100px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                POST https://azfdeu2yaped10.azurefd.net/yap-che/channel/yape/v1/checkout/pay
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-49">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-49">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 412</p>
+                                        <p>Content Type: application/json</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IkFBM0U3N0Y3Njk3QTIwNDgxRjc1OEE2NzFBNDc0QUM0ODBFQTc1NUMiLCJ4NXQiOiJxajUzOTJsNklFZ2ZkWXBuR2tkS3hJRHFkVncifQ.eyJpc3MiOiJodHRwczovL3lhcGVkZXYuYjJjbG9naW4uY29tLzUzZjhhYjMwLWY3ODctNDhhZS1iODEwLWM2MGQxOWI4NTRiYS92Mi4wLyIsImV4cCI6MTY0NjY2NjIwNiwibmJmIjoxNjQ2NjY1NzI2LCJhdWQiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJvaWQiOiIwN2U1ZWFjMy0wYjRmLTQyOGYtYTNlOC1jNDZhYWNkMmMyMGUiLCJkb2N1bWVudCI6ImRvYyIsImRvY3VtZW50VHlwZSI6ImZkZiIsIm5hbWVzIjoibmFtZXN4IiwiZnVsbE5hbWUiOiJmdWxsbmFtZXgiLCJuZWVkTmFtZSI6Im5lZWRuYW1leCIsImlkWWFwZUFjY291bnQiOiJlMTYxMGMxOTBiNmE1NTgxODM5NTQ2ODQ0NjMyMDk2YyIsImF1dGhSZXN1bHQiOiIiLCJzdWIiOiJmaGZnIiwic3RlcCI6ImIyY18xYV95YXBlX3BlcnNvbmFzX29uYm9hcmRpbmciLCJhenAiOiJlODY2NjJiMy02ZGQzLTQwYTItYmZjMi0zY2M1YWEzMTRhNmMiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2NDY2NjU3MjZ9.JgEXs-ioXSzcLL_upMP32wMXxM8r-5if5xNLsPGD6p16VWzrx0EeFQ_Hfbzz92WtgvmwgmjmLno8-XfoVA3IkINsVuiECm39OFMbyaDkPBwUgkiDygQhNEZdQnm_uwJAl2ZqJH9Oj6n4uEE7IwUie0CDWTXN7friVrLrhYbg4rx7d6NFmDQsAuw0U04l1J8kZ5DMOeD8jcfx6YMKvkEIQ5jAd6xMzxU6WfOivDhCgUpRCC8WLCvtuQkDnwYgQD9jjZv1NdfPi8T52yEOQyo1aqxnzI6nfrWGJWNf_Revh_YPsFEVmGEFMU6HgDll7uJPwiZPjFx8Xum1udAM4PPx_g<br>caller-name=terms-conditions<br>request-date=2015-06-01T17:15:20.509-0400<br>app-code=YP<br>Request-ID=550e8400-e29b-41d4-a716-447655440000<br>Accept=*/*<br>Content-Type=application/json; charset=UTF-8</pre>
+                                        <h4>Content Body</h4>
+                                        <pre>{<br>    &quot;phoneNumber&quot;: &quot;982050051&quot;,<br>    &quot;amount&quot;: &quot;600.00&quot;<br>}</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>Cache-Control: no-cache, no-store, max-age=0, must-revalidate<br>Pragma: no-cache<br>Transfer-Encoding: chunked<br>Content-Type: application/json<br>Expires: 0<br>Request-ID: 550e8400-e29b-41d4-a716-447655440000<br>opn-nro-host: 41664668-3a77-4de9-86e1-787cf7a77023<br>error-type: FUNCTIONAL<br>error-code: YPCHK0003<br>X-Content-Type-Options: nosniff<br>Strict-Transport-Security: max-age=15724800; includeSubDomains<br>X-Frame-Options: DENY<br>X-XSS-Protection: 1 ; mode=block<br>Referrer-Policy: no-referrer<br>X-Cache: CONFIG_NOCACHE<br>X-Azure-Ref: 0/x8mYgAAAAAyMdMBZ9FoRJoDdQ3TloIoU0NMMzBFREdFMDIwNgAyNzQxZGM0My1kNmRjLTQ1ZDYtYjU4NS1lYjVlNDcxYWU5YmM=<br>Date: Mon, 07 Mar 2022 15:08:47 GMT</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;code&quot;: &quot;YPCHK0003&quot;,<br>    &quot;description&quot;: &quot;Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.&quot;,<br>    &quot;errorType&quot;: &quot;FUNCTIONAL&quot;,<br>    &quot;exceptionDetails&quot;: [<br>        {<br>            &quot;code&quot;: &quot;YPCHK0003&quot;,<br>            &quot;component&quot;: &quot;channel-yape-checkout&quot;<br>        }<br>    ]<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="3-3"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-3')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection3-3 success-icon"
+                                       style="margin-left: 40px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection3-3')"
+                                   style="display:block;">
+                                    <span class="nested-step">
+                                                Then el yapero visualiza el codigo YPCHK0003 y descripcion Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-step">0.01s</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection3-3" class="step-table-nested" style="display:none;">
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="3-3-0"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then El codigo de error es:  should be 'YPCHK0003'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="90" class="step-icon">
+                            <a name="3-3-1"></a>
+                                <span style="margin-left: 60px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Then La descripcion es:  should be 'Conflicto entre el recurso a actualizar y el que se encuentra en el sistema.'
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">0s</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                <tr class="test-SUCCESS">
+                        <td colspan="2"></td>
+                    <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
+                    <td width="100"><span class="top-level-step"><em>11.76s</em></span></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div id="beforefooter"></div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="version">Serenity BDD version 2.3.11</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function toggleDiv(divId) {
+            $("#" + divId).toggle();
+            var imgsrc = $(".img" + divId).attr('src');
+            if (imgsrc == 'images/plus.png') {
+                $(".img" + divId).attr("src", function () {
+                    return "images/minus.png";
+                });
+
+            } else {
+                $(".img" + divId).attr("src", function () {
+                    return "images/plus.png";
+                });
+            }
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(document).ready(function () {
+            $('img.screenshot').imgPreview({
+                imgCSS: {
+                    width: '500px'
+                },
+                distanceFromCursor: {top: 10, left: -200}
+            });
+        });
+
+        //]]>
+    </script>
+    <div id="imgPreviewContainer" style="position: absolute; top: 612px; left: 355px; display: none; " class=""><img
+                src="" style="display: none; "></div>
+    <div id="imgPreviewContainer2" style="position: absolute; top: 925px; left: 320px; display: none; " class="">
+        <img style="width: 200px; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles" style="position: absolute; top: 1272px; left: 321px; display: none; " class="">
+        <img style="height: 200px; opacity: 1; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles2" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+    <div id="imgPreviewWithStyles3" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+
+</div>
+</body>
+</html>
