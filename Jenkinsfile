@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 
 pipeline {
   agent any
+  stages {
     stage("Package") {
 /*       when {
         branch 'master'
