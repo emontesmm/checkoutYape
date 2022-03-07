@@ -9,10 +9,12 @@ pipeline {
 /*       when {
         branch 'master'
       } */
+      withMaven(maven:"mvn"){
       steps {
         sh 'mvn clean package'
       }
     }
+   }
 
     stage(TCs) {
     /*   when {
