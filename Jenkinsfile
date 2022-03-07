@@ -6,12 +6,9 @@ pipeline {
   agent any
   stages {
     stage("Package") {
-/*       when {
-        branch 'master'
-      } */
       withMaven(maven:"mvn"){
-      steps {
-        sh 'mvn clean package'
+            steps {
+                sh 'mvn clean package'
       }
     }
    }
