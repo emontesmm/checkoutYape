@@ -3,15 +3,19 @@ def TEST_CASE_VARIABLE
 import groovy.json.JsonSlurper
 
 pipeline {
-  agent any
+ agent any
+ tools {
+     maven 'M3'
+   }
   stages {
     stage("Package") {
-      withMaven(maven:"mvn"){
-            steps {
-                sh 'mvn clean package'
+/*       when {
+        branch 'master'
+      } */
+      steps {
+        sh 'mvn clean package'
       }
     }
-   }
 
     stage(TCs) {
     /*   when {
