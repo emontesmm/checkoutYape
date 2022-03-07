@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Funcionalidad de Checkout Ecommerce" skipped="0" tests="5" time="24.07" timestamp="2022-03-07 10:08:24"><testcase name="Validar que el EP Pay responda correctamente"/><testcase name="Validar que el EP Pay no responda correctamente de acuerdo a las validaciones"/></testsuite>
