@@ -8,6 +8,7 @@ Feature: Funcionalidad de Checkout Ecommerce
       When el yapero invoca al EP Pay
       And el yapero ingresa su numero <celular> y el monto <monto> a pagar en el commerce
       Then el yapero confirma la transaccion
+    #  Then el ejecuto
       Examples:
         | celular   | monto |
         | 982050051 | 50.00 |

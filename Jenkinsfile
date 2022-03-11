@@ -61,6 +61,15 @@ pipeline {
         }
       }
     }
+    stage(git){
+      steps{
+        git credentialsId: 'b3c4ca1b-b64e-43e9-858c-0a5fc9a75bab', url: 'https://github.com/emontesmm/rappi-service.git'
+        script{
+            sh "mvn clean verify"
+        }
+      }
+    }
+
   }
   post{
      always{
